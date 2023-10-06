@@ -70,17 +70,13 @@ public class PlayerService {
     public void getMoreHealthForPlayer(Player player) {
         if (player.getCountOfHealing() > 0) {
             int health = Math.round((float) (player.getHealth() + 30));
-            if (health > 100) {
-                player.setHealth(100);
-            } else player.setHealth(health);
+            player.setHealth(Math.min(health, 100));
             player.setCountOfHealing(player.getCountOfHealing() - 1);
         }
     }
 
     public boolean isPlayerAlive(Player player) {
-        if (player.getHealth() <= 0) {
-            return false;
-        } else return true;
+        return player.getHealth() > 0;
     }
 
 
@@ -102,9 +98,7 @@ public class PlayerService {
 
     private void printHealth(Integer health) {
         StringBuilder sb = new StringBuilder();
-        for (int i = 0; i < health; i++) {
-            sb.append("*");
-        }
+        sb.append("*".repeat(Math.max(0, health)));
         System.out.println(sb + "  (" + sb.length() + "%)");
     }
 

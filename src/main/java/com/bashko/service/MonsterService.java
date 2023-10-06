@@ -42,13 +42,10 @@ public class MonsterService {
 
     public boolean isMonstersAlive(List<Monster> monsters) {
         int countAliveMonsters = 0;
-        for (int i = 0; i < monsters.size(); i++) {
-            if (monsters.get(i).getHealth() > 0) countAliveMonsters++;
+        for (Monster monster : monsters) {
+            if (monster.getHealth() > 0) countAliveMonsters++;
         }
-        if (countAliveMonsters == 0) {
-            return false;
-        }
-        return true;
+        return countAliveMonsters != 0;
     }
 
     public List<Monster> createMonsters(int countOfMonsters) {
@@ -67,17 +64,15 @@ public class MonsterService {
     }
 
     public void printMonsters(List<Monster> monsters) {
-        for (int i = 0; i < monsters.size(); i++) {
-            System.out.print(monsters.get(i).getName() + " : ");
-            printHealth(monsters.get(i).getHealth());
+        for (Monster monster : monsters) {
+            System.out.print(monster.getName() + " : ");
+            printHealth(monster.getHealth());
         }
     }
 
     private void printHealth(Integer health) {
         StringBuilder sb = new StringBuilder();
-        for (int i = 0; i < health; i++) {
-            sb.append("*");
-        }
+        sb.append("*".repeat(Math.max(0, health)));
         System.out.println(sb + "  (" + sb.length() + "%)");
     }
 }
