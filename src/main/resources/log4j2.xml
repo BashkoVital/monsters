@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="WARN" name="JRHibernateProject2">
+    <Appenders>
+        <RollingFile name="RollingFile" fileName="logs/monsters.log"
+                     filePattern="logs/$${date:yyyy-MM}/monsters-%d{MM-dd-yyyy}-%i.log.gz">
+            <PatternLayout>
+                <Pattern>%d{YYYY-MM-dd HH:mm:ss.SSS} %-5level %logger{36}: %msg%n</Pattern>
+            </PatternLayout>
+            <Policies>
+                <CronTriggeringPolicy schedule="0 0 0 * * ?"/>
+                <TimeBasedTriggeringPolicy/>
+                <SizeBasedTriggeringPolicy size="1 MB"/>
+            </Policies>
+            <DefaultRolloverStrategy>
+                <Delete basePath="logs">
+                    <IfFileName glob="monsters.*.log"/>
+                    <IfLastModified age="P7D"/>
+                </Delete>
+            </DefaultRolloverStrategy>
+        </RollingFile>
+    </Appenders>
+    <Loggers>
+        <Root level="info">
+            <AppenderRef ref="RollingFile"/>
+        </Root>
+    </Loggers>
+</Configuration>
