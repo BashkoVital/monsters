@@ -38,6 +38,7 @@ public class InitController {
             System.out.println("Введено некорректное имя. Имя должно состоять из букв кириллического алфавита");
             playerName = scanner.next();
         }
+        System.out.println("Добро пожаловать в игру, " + playerName + "!");
 
         System.out.println("Выберите игрового персонажа");
         Player person = PlayerService.thePersonagesOfTheGame.get("Человек");
@@ -53,17 +54,15 @@ public class InitController {
         }
         int personage = Integer.parseInt(choosePersonage);
         Player player;
-
         if (personage == 1) {
             player = playerService.createNewPlayer(person, playerName);
             log.info("Player {} chose personage \"{}\", player was created", playerName, person.getName());
-        }
-        else {
+        } else {
             player = playerService.createNewPlayer(elf, playerName);
             log.info("Player {} chose personage \"{}\", player was created", playerName, elf.getName());
         }
         log.info("Player {} joined the game", player.getName());
-        System.out.println("Добро пожаловать в игру, " + playerName + "!");
+
         System.out.println("Введите количество монстров от 1 до 5");
 
         String countOfMonsters = scanner.next();
@@ -74,6 +73,7 @@ public class InitController {
         }
         List<Monster> monsters = monsterService.createMonsters(Integer.parseInt(countOfMonsters));
         log.info("Player {} play against {} monster(s)", player.getName(), countOfMonsters);
+
         System.out.println("Для начала игры введите команду - \"старт\"");
         System.out.println("Для совершения хода введите - \"б\"");
         System.out.println("Для восстановления здоровья на 30%, но помните это можно сделать только 4 раза, введите - \"з\"");
